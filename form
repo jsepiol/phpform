@@ -1,0 +1,113 @@
+<html>
+<head>
+<?php
+$user='root';
+$pass='';
+$host='localhost';
+$base='Form';
+
+$con=mysqli_connect($host,$user,$pass,$base);
+mysqli_select_db($con,$base);
+if (isset($_GET['sub']))
+{
+    $id=$_GET['id'];
+    $name=$_GET['name'];
+    $surname=$_GET['surname'];
+    $score=$_GET['score'];
+    $query="Insert into zawody(ID,Name,Surname,Score) values ('$id','$name','$surname','$score')";
+
+    $run=mysqli_query($con,$query) or die(mysqli_error());
+
+    if($run){
+        echo"Formularz jest zatwierdzony";
+    }
+    else{
+        echo"formularz jest bledny";
+    }
+
+}
+
+
+
+if (isset($_GET['delete']))
+{
+    $id=$_GET['id'];
+    $name=$_GET['name'];
+    $surname=$_GET['surname'];
+    $score=$_GET['score'];
+    $query="delete from zawody where id=$id;";
+
+    $run=mysqli_query($con,$query) or die(mysqli_error());
+
+    if($run){
+        echo"Formularz jest zatwierdzony";
+    }
+    else{
+        echo"formularz jest bledny";
+    }
+
+}
+
+
+if (isset($_GET['edit']))
+{
+    $id=$_GET['id'];
+    $name=$_GET['name'];
+    $surname=$_GET['surname'];
+    $score=$_GET['score'];
+    $query="Update zawody SET name=('$name') , surname=('$surname'), score=('$score') where id=('$id');";
+
+    $run=mysqli_query($con,$query) or die(mysqli_error());
+
+    if($run){
+        echo"Formularz jest zatwierdzony";
+    }
+    else{
+        echo"formularz jest bledny";
+    }
+
+}
+
+
+if (isset($_GET['show'])){
+
+    $id=$_GET['id'];
+    $name=$_GET['name'];
+    $surname=$_GET['surname'];
+    $score=$_GET['score'];
+    $query="select * from zawody;";
+
+    $run=mysqli_query($con,$query) or die(mysqli_error());
+
+    while($row = mysqli_fetch_array($run, MYSQLI_NUM)){
+        var_dump($row);
+    }
+
+}
+
+   
+
+    
+
+
+?>
+
+</head>
+<body>
+
+<form method="get">
+id <br> <input type="text" name="id"><br>
+name <br> <input type="text" name="name"><br>
+surname <br> <input type="text" name="surname"><br>
+score <br> <input type="text" name="score"><br>
+
+
+<input type="submit" value="send" name="sub"><br>
+<input type="submit" value="show" name="show"><br>
+<input type="submit" value="delete" name="delete"><br>
+<input type="submit" value="edit" name="edit">
+</form>
+
+
+</body>
+</html>
